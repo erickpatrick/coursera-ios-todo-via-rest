@@ -8,7 +8,9 @@
 import UIKit
 
 class TodoCell: UITableViewCell {
-
+    @IBOutlet weak var todoText: UILabel!
+    @IBOutlet weak var todoPriority: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -40,7 +40,7 @@
                                 <rect key="frame" x="16" y="199" width="361" height="619"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="Q69-CJ-y6o" customClass="TodoCell" customModule="TodoViaRest" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoCell" rowHeight="60" id="Q69-CJ-y6o" customClass="TodoCell" customModule="TodoViaRest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="361" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q69-CJ-y6o" id="IHj-h1-DhZ">
@@ -73,6 +73,10 @@
                                                 <constraint firstItem="oFO-3a-eBm" firstAttribute="centerY" secondItem="IHj-h1-DhZ" secondAttribute="centerY" id="qQB-Ue-qRh"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="todoPriority" destination="oFO-3a-eBm" id="Qei-r8-HgC"/>
+                                            <outlet property="todoText" destination="EU7-uR-z0K" id="yIL-XG-cdp"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
