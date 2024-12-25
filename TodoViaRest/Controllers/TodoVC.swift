@@ -8,12 +8,17 @@
 import UIKit
 
 class TodoVC: UIViewController {
-
+    @IBOutlet weak var todoItem: UITextField!
+    @IBOutlet weak var addTodo: UIButton!
+    @IBOutlet weak var todoPriority: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func addTodo(_ sender: Any) {
+    }
+    
 }
 
