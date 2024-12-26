@@ -15,36 +15,35 @@ class NetworkService {
     
     let session = URLSession(configuration: .default)
     
-    func getTodos() -> [Todo] {
+    func getTodos(onSuccess: @escaping (Todos) -> Void) {
         let url = URL(string: BASE_URL)! // we know it exists because it's a constant :)
         
         let task = session.dataTask(with: url) { data, response, error in
-            if let error = error {
-                debugPrint(error.localizedDescription)
-                return
-            }
-            
-            guard let data = data, let response = response as? HTTPURLResponse else {
-                debugPrint("Invalid data or response")
-                return
-            }
-            
-            do {
-                if response.statusCode == 200 {
-                    let items = try JSONDecoder().decode(Todos.self, from: data)
-                    print(items)
-                } else {
-                    let err = try JSONDecoder().decode(ApiError.self, from: data)
+            DispatchQueue.main.async {
+                if let error = error {
+                    debugPrint(error.localizedDescription)
+                    return
                 }
-            } catch {
-                debugPrint(error.localizedDescription)
+                
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    debugPrint("Invalid data or response")
+                    return
+                }
+                
+                do {
+                    if response.statusCode == 200 {
+                        let items = try JSONDecoder().decode(Todos.self, from: data)
+                        onSuccess(items)
+                    } else {
+                        let err = try JSONDecoder().decode(ApiError.self, from: data)
+                    }
+                } catch {
+                    debugPrint(error.localizedDescription)
+                }
             }
-            
         }
         
         task.resume()
-        
-        return []
     }
     
     func addTodo(todo: Todo) {
