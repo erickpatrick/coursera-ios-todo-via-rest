@@ -17,7 +17,6 @@ app.get('/', (request, response) => response.send({ items: todos }))
 app.post('/add', (request, response) => {
     if (request.body && request.body.item !== "") {
         todos.push(request.body);
-        console.log(todos);
         response.send({ items: todos });
     } else {
         response.status(400).send({ message: "Todo item must have a title" })
