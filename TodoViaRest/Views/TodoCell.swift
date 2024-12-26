@@ -11,15 +11,21 @@ class TodoCell: UITableViewCell {
     @IBOutlet weak var todoText: UILabel!
     @IBOutlet weak var todoPriority: UIView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func updateCell(todo: Todo) {
+        todoText.text = todo.item
+        switch todo.priority {
+        case 0:
+            todoPriority.backgroundColor = .yellow
+            break
+        case 1:
+            todoPriority.backgroundColor = .orange
+            break
+        case 2:
+            todoPriority.backgroundColor = .red
+            break
+        default:
+            todoPriority.backgroundColor = .gray
+        }
     }
 
 }

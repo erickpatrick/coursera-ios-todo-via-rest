@@ -15,30 +15,31 @@ class NetworkService {
     
     let session = URLSession(configuration: .default)
     
-    func getTodos(onSuccess: @escaping (Todos) -> Void) {
+    func getTodos(onSuccess: @escaping ([Todo]) -> Void, onError: @escaping (String) -> Void) {
         let url = URL(string: BASE_URL)! // we know it exists because it's a constant :)
         
         let task = session.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    debugPrint(error.localizedDescription)
+                    onError(error.localizedDescription)
                     return
                 }
                 
                 guard let data = data, let response = response as? HTTPURLResponse else {
-                    debugPrint("Invalid data or response")
+                    onError("invalid error response")
                     return
                 }
                 
                 do {
                     if response.statusCode == 200 {
                         let items = try JSONDecoder().decode(Todos.self, from: data)
-                        onSuccess(items)
+                        onSuccess(items.items)
                     } else {
                         let err = try JSONDecoder().decode(ApiError.self, from: data)
+                        onError(err.message)
                     }
                 } catch {
-                    debugPrint(error.localizedDescription)
+                    onError(error.localizedDescription)
                 }
             }
         }

@@ -51,7 +51,6 @@
                                                     <rect key="frame" x="311" y="11" width="40" height="38"/>
                                                     <color key="backgroundColor" systemColor="systemBlueColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="nxy-Hj-576"/>
                                                         <constraint firstAttribute="width" constant="40" id="z0f-lS-e3S"/>
                                                     </constraints>
                                                 </view>
@@ -104,6 +103,7 @@
                         <outlet property="addTodo" destination="LaJ-1Z-b1t" id="n4G-N5-Eb7"/>
                         <outlet property="todoItem" destination="j6R-Pr-np0" id="l8c-Cp-6RW"/>
                         <outlet property="todoPriority" destination="C16-9v-DPf" id="ebg-YH-Ouz"/>
+                        <outlet property="todoTable" destination="Uuh-Ar-zvN" id="qD9-RD-dcq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -116,7 +116,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
