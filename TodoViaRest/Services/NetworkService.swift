@@ -47,7 +47,47 @@ class NetworkService {
         task.resume()
     }
     
-    func addTodo(todo: Todo) {
+    func addTodo(todo: Todo, onSuccess: @escaping ([Todo]) -> Void, onError: @escaping (String) -> Void) {
+        let url = URL(string: "\(BASE_URL)\(ADD_TODO_URL)")!
+        var request = URLRequest(url: url)
         
+        request.httpMethod = "POST"
+        
+        do {
+            let body = try JSONEncoder().encode(todo)
+            request.httpBody = body
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = session.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        onError(error.localizedDescription)
+                        return
+                    }
+                    
+                    guard let data = data, let response = response as? HTTPURLResponse else {
+                        onError("invalid error response")
+                        return
+                    }
+                    
+                    do {
+                        if response.statusCode == 200 {
+                            let items = try JSONDecoder().decode(Todos.self, from: data)
+                            onSuccess(items.items)
+                        } else {
+                            let err = try JSONDecoder().decode(ApiError.self, from: data)
+                            onError(err.message)
+                        }
+                    } catch {
+                        onError(error.localizedDescription)
+                    }
+                }
+            }
+            
+            task.resume()
+        } catch {
+            onError(error.localizedDescription)
+        }
     }
 }
