@@ -26,16 +26,18 @@ class TodoVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
 
     @IBAction func addTodo(_ sender: Any) {
-        NetworkService.shared.addTodo(
-            todo: Todo(item: todoItem.text!, priority: Int(todoPriority.selectedSegmentIndex))
-        ) { todos in
-            self.todos = todos
-            self.todoTable.reloadData()
-            self.todoItem.text = ""
-            self.todoPriority.selectedSegmentIndex = 0
-        } onError: { errorMessage in
-            self.apiErrorMessage = errorMessage
-            print(self.apiErrorMessage)
+        if let todoText = todoItem.text {
+            NetworkService.shared.addTodo(
+                todo: Todo(item: todoText, priority: Int(todoPriority.selectedSegmentIndex))
+            ) { todos in
+                self.todos = todos
+                self.todoTable.reloadData()
+                self.todoItem.text = ""
+                self.todoPriority.selectedSegmentIndex = 0
+            } onError: { errorMessage in
+                self.apiErrorMessage = errorMessage
+                print(self.apiErrorMessage)
+            }
         }
     }
     
